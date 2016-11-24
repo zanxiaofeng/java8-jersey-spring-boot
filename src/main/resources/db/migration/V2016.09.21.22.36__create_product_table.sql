@@ -4,3 +4,6 @@ CREATE TABLE `PRODUCT` (
   `time_created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
