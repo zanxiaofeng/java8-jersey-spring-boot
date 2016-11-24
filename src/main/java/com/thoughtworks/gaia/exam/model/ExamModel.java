@@ -20,7 +20,7 @@ public class ExamModel extends IdBaseModel {
     private Date endTime;
 
     @Column(name = "template_id")
-    private int templateId;
+    private Long templateId;
 
     public String getName() {
         return name;
@@ -46,11 +46,11 @@ public class ExamModel extends IdBaseModel {
         this.endTime = endTime;
     }
 
-    public int getTemplateId() {
+    public Long getTemplateId() {
         return templateId;
     }
 
-    public void setTemplateId(int templateId) {
+    public void setTemplateId(Long templateId) {
         this.templateId = templateId;
     }
 }
