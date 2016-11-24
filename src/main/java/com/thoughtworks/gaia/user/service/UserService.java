@@ -4,6 +4,7 @@ import com.exmertec.yaz.query.EqualQuery;
 import com.google.common.base.Strings;
 import com.thoughtworks.gaia.common.Loggable;
 import com.thoughtworks.gaia.common.exception.BadRequestException;
+import com.thoughtworks.gaia.common.exception.ErrorCode;
 import com.thoughtworks.gaia.user.UserMapper;
 import com.thoughtworks.gaia.user.dao.UserDao;
 import com.thoughtworks.gaia.user.entity.User;
@@ -24,11 +25,11 @@ public class UserService implements Loggable {
 
     public User createUser(String userId, String password) {
         if (Strings.isNullOrEmpty(userId)){
-            throw new BadRequestException();
+            throw new BadRequestException(ErrorCode.USER_EMPTY_USER_ID);
         }
 
         if (userDao.where(new EqualQuery("userId", userId)).count() > 0){
-            throw new BadRequestException();
+            throw new BadRequestException(ErrorCode.USER_EXISTS_USER_ID);
         }
 
         UserModel userModel = new UserModel();
