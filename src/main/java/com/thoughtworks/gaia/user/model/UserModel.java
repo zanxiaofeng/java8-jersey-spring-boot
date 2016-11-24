@@ -13,6 +13,9 @@ public class UserModel extends IdBaseModel {
     @Column(name = "user_id", nullable = false, length = 64)
     private String userId;
 
+    @Column(name = "password", nullable = false, length = 128)
+    private String password;
+
     @Column(name = "time_created", nullable = false, updatable = false)
     private Date timeCreated;
 
@@ -20,8 +23,16 @@ public class UserModel extends IdBaseModel {
         return userId;
     }
 
-    public void setuserId(String userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getTimeCreated() {

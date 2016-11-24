@@ -8,6 +8,7 @@ public class User {
     private String userId;
 
     private Date timeCreated;
+    private String password;
 
     public Long getId() {
         return id;
@@ -31,5 +32,13 @@ public class User {
 
     public void setTimeCreated(Date timeCreated) {
         this.timeCreated = timeCreated;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
