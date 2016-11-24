@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Component
 @Path("quizrepositories")
@@ -22,13 +23,16 @@ public class QuizRepositoryEndPoint {
     @Autowired
     private QuizRepositoryService qrService;
 
-    /*
-    @Path("")
     @ApiOperation(value = "Get all quiz repositories", response = QuizRepository.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Get quiz repository successfully"),
             @ApiResponse(code = 404, message = "Cannot get quiz respository")
-    })*/
+    })
+    @GET
+    public Response getAllQuizRepositories() {
+        List<QuizRepository> qr = qrService.getAllQuizRepositories();
+        return Response.ok().entity(qr).build();
+    }
 
 
     /*
