@@ -7,6 +7,7 @@ import com.thoughtworks.gaia.user.dao.UserDao;
 import com.thoughtworks.gaia.user.entity.User;
 import com.thoughtworks.gaia.user.model.UserModel;
 import com.thoughtworks.gaia.user.service.UserService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,14 @@ public class UserServiceFunctionalTest {
 
     @Autowired
     private UserDao userDao;
+
+    @Before
+    public void setUp(){
+        UserModel userModel = new UserModel();
+        userModel.setUserId("abc");
+        userModel.setPassword("000000");
+        userDao.save(userModel);
+    }
 
     @Test
     public void should_create_a_new_user_given_an_user_id_and_password(){
