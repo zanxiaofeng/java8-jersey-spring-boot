@@ -42,17 +42,10 @@ public class QuizRepositoryEndPoint {
         return Response.ok().links(links).build();
     }
 
-    /*
-    @Path("/{product_id}")
-    @ApiOperation(value = "Get product by id", response = Product.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Get product successfully"),
-            @ApiResponse(code = 404, message = "No product matches given id")
-    })
+    @Path("/{id}")
     @GET
-    public Response getProduct(@PathParam("product_id") Long productId) {
-        Product product = productService.getProduct(productId);
-        return Response.ok().entity(product).build();
+    public Response getQuizRepositoryById(@PathParam("id") Long id) {
+        QuizRepository qr = qrService.getQuizRepositoryById(id);
+        return Response.ok().entity(qr).build();
     }
-    */
 }

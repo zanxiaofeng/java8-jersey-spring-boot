@@ -2,6 +2,7 @@ package com.thoughtworks.gaia.quizrepository.service;
 
 import com.exmertec.yaz.query.EmptyQuery;
 import com.thoughtworks.gaia.common.Loggable;
+import com.thoughtworks.gaia.common.exception.NotFoundException;
 import com.thoughtworks.gaia.quizrepository.QuizRepositoryMapper;
 import com.thoughtworks.gaia.quizrepository.dao.QuizRepositoryDao;
 import com.thoughtworks.gaia.quizrepository.entity.QuizRepository;
@@ -24,5 +25,16 @@ public class QuizRepositoryService implements Loggable {
     public List<QuizRepository> getAllQuizRepositories() {
         List<QuizRepositoryModel> qrModel = qrDao.where(new EmptyQuery()).queryList();
         return mapper.mapList(qrModel, QuizRepository.class);
+    }
+
+    public QuizRepository getQuizRepositoryById(Long Id) {
+        QuizRepositoryModel qrModel = qrDao.idEquals(Id).querySingle();
+
+        if (qrModel == null) {
+            error("No quiz repositories in the system was found.");
+            throw new NotFoundException();
+        }
+
+        return mapper.map(qrModel, QuizRepository.class);
     }
 }
