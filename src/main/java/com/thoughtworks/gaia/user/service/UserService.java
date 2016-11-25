@@ -39,4 +39,26 @@ public class UserService implements Loggable {
 
         return mapper.map(userModel, User.class);
     }
+
+    public User updateUser(User user){
+        if (null == user.getId() || user.getId() <= 0) {
+            throw new BadRequestException(ErrorCode.USER_EMPTY_USER_ID);
+        }
+
+        if (null != user.getPhone() && user.getPhone().length() != 11) {
+            throw new BadRequestException(ErrorCode.USER_INVALID_PHONE);
+        }
+
+        UserModel userModel = new UserModel();
+        userModel.setId(user.getId());
+        userModel.setSex(user.getSex());
+        userModel.setSchool(user.getSchool());
+        userModel.setGrade(user.getGrade());
+        userModel.setPhone(user.getPhone());
+        userModel.setAge(user.getAge());
+        userModel.setRealname(user.getRealname());
+
+        userDao.update(userModel);
+        return mapper.map(userModel, User.class);
+    }
 }

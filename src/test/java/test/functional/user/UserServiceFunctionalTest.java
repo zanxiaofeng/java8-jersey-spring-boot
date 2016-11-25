@@ -3,12 +3,10 @@ package test.functional.user;
 import com.thoughtworks.gaia.GaiaApplication;
 import com.thoughtworks.gaia.common.constant.EnvProfile;
 import com.thoughtworks.gaia.common.exception.BadRequestException;
-import com.thoughtworks.gaia.common.exception.NotFoundException;
-import com.thoughtworks.gaia.user.entity.User;
 import com.thoughtworks.gaia.user.dao.UserDao;
+import com.thoughtworks.gaia.user.entity.User;
 import com.thoughtworks.gaia.user.model.UserModel;
 import com.thoughtworks.gaia.user.service.UserService;
-import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +70,51 @@ public class UserServiceFunctionalTest {
 
         //when, then
         assertThatThrownBy(() -> userService.createUser(userId, password)).isInstanceOf(BadRequestException.class);
+    }
+
+    @Test
+    public void should_return_user_entity_given_valid_message() throws Exception{
+        User user = new User();
+        user.setId(1L);
+        user.setAge(21);
+        user.setRealname("Jack");
+        user.setGrade("大三");
+        user.setPhone("13000909900");
+        user.setSchool("Harvard");
+        user.setSex(1);
+
+        User user1 = userService.updateUser(user);
+        assertThat(user1.getAge()).isEqualTo(user.getAge());
+        assertThat(user1.getPhone()).isEqualTo(user.getPhone());
+    }
+
+    @Test
+    public void should_throw_bad_request_exception_given_invalid_phone_num() {
+        User user = new User();
+        user.setId(1L);
+        user.setAge(21);
+        user.setRealname("Jack");
+        user.setGrade("大三");
+        user.setPhone("12233222");
+        user.setSchool("Harvard");
+        user.setSex(1);
+
+
+        assertThatThrownBy(() -> userService.updateUser(user)).isInstanceOf(BadRequestException.class);
+    }
+
+    @Test
+    public void should_throw_bad_request_exception_given_invalid_id() {
+        User user = new User();
+        user.setId(-1L);
+        user.setAge(21);
+        user.setRealname("Jack");
+        user.setGrade("大三");
+        user.setPhone("13000909900");
+        user.setSchool("Harvard");
+        user.setSex(1);
+
+
+        assertThatThrownBy(() -> userService.updateUser(user)).isInstanceOf(BadRequestException.class);
     }
 }

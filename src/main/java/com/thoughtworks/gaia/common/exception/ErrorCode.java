@@ -5,7 +5,8 @@ public enum ErrorCode {
     UNKNOWN(0),
     RESOURCE_NOT_FOUND(1),
     USER_EMPTY_USER_ID(40001),
-    USER_EXISTS_USER_ID(40002);
+    USER_EXISTS_USER_ID(40002),
+    USER_INVALID_PHONE(40003);
 
     private final int code;
 
