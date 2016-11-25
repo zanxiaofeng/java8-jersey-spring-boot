@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Path("quizrepositories")
@@ -20,6 +20,9 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class QuizRepositoryEndPoint {
+    @Context
+    UriInfo uriInfo;
+
     @Autowired
     private QuizRepositoryService qrService;
 
@@ -30,10 +33,14 @@ public class QuizRepositoryEndPoint {
     })
     @GET
     public Response getAllQuizRepositories() {
-        List<QuizRepository> qr = qrService.getAllQuizRepositories();
-        return Response.ok().entity(qr).build();
-    }
+        List<QuizRepository> repositories = qrService.getAllQuizRepositories();
 
+        Link[] links = repositories.stream().map(
+                repository -> Link.fromUri(uriInfo.getAbsolutePathBuilder().path(repository.getId().toString()).build()).build()
+            ).collect(Collectors.toList()).toArray(new Link[repositories.size()]);
+
+        return Response.ok().links(links).build();
+    }
 
     /*
     @Path("/{product_id}")

@@ -15,7 +15,7 @@ public class JerseyConfig extends ResourceConfig {
             "com.thoughtworks.gaia.product.endpoint",
             "com.thoughtworks.gaia.user.endpoint",
             "com.thoughtworks.gaia.quizrepository.endpoint",
-            "com.thoughtworks.gaia.exam.endpoint",
+            "com.thoughtworks.gaia.exam.endpoint"
     };
 
     public JerseyConfig() {
